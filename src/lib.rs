@@ -13,13 +13,17 @@ impl Config{
         }
         let query = args[1].clone();
         let filename = args[2].clone();
-        println!("here");
+
         Ok(Config {query, filename})
     }
 }
 
 pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     let contents = fs::read_to_string(config.filename)?;
+
+    for line in search(&config.query, &contents){
+        println!("{}",line);
+    }
 
     Ok(())
 }
